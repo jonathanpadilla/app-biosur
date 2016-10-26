@@ -1,0 +1,32 @@
+/*Alineacion*/
+.panel-login{
+	margin-top: 50px;
+	height:100%;
+}
+
+.panel-login h1{
+	text-align: center;
+}
+
+.img-logo{
+	text-align: center;
+}
+
+/*inicio*/
+/* COLOR */
+button.button-biosur{
+	border-color: transparent !important;
+    background-color: #ea661c !important;
+    color: #fff !important;
+}
+
+div.head-user{
+	text-align: right;
+	margin-right:10px;
+}
+
+div.menu-principal .item{
+	border-color: #ea661c;
+	color: #ea661c;
+	/*color: #fff;*/
+}

@@ -1,0 +1,31 @@
+<ion-view view-title="Registrar Mantención">
+	<ion-nav-buttons side="right">
+		<button id="btnenviar" class="button button-biosur" ng-click="guardar()">Enviar</button>
+	</ion-nav-buttons>
+	<ion-content>
+
+		<div class="row">
+			<div class="col">
+				<!-- <h3>Registrar mantención</h3> -->
+				<span>Ubicación: <strong style="color:green">{{ gpstrue }}</strong><strong style="color:red">{{ gpsfalse }}</strong></span>
+				<button class="button button-block button-biosur" ng-click="captureQr()">Capturar código</button>
+				
+				<div style="text-align:center;height:30px;">
+					<h3>{{ data.codigo }}</h3>
+				<!-- <i class="icon ion-star"></i> -->
+				</div>
+				<br>
+				<!-- <button class="button button-block button-biosur" ng-click="tomarFoto()">Tomar foto</button>
+				<img src="{{ foto }}" style="width:100%"> -->
+				<label class="item item-input">
+					<textarea cols="30" rows="10" placeholder="Comentario..." ng-model="data.comentario"></textarea>
+				</label>
+				<!-- <input type="text" ng-model="data.codigo"> -->
+				<!-- <input type="text" ng-model="data.latitud">
+				<input type="text" ng-model="data.longitud">
+				<input type="text" ng-model="data.foto"> -->
+			</div>
+		</div>
+
+	</ion-content>
+</ion-view>

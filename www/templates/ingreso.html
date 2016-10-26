@@ -1,0 +1,25 @@
+<ion-view view-title="">
+	<ion-content>
+
+		<div class="row">
+		  	<div class="col">
+		  		<div class="list list-inset panel-login">
+		  			<div class="img-logo">
+						<img src="img/logo-biosur.png" alt="">
+		  			</div>
+				  	<label class="item item-input">
+				    	<input type="text" placeholder="Rut" ng-model="data.rut" required="required">
+				  	</label>
+				  	<label class="item item-input">
+				    	<input type="password" placeholder="Clave" ng-model="data.clave" required="required">
+				  	</label>
+				  	<button class="button button-block button-biosur" ng-click="login()">
+					  	Entrar
+					</button>
+					<span style="color:red" ng-bind-html="msg"></span>
+				</div>
+		  	</div>
+		</div>
+
+	</ion-content>
+</ion-view>

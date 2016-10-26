@@ -1,0 +1,35 @@
+<ion-view view-title="Inicio">
+	<ion-content>
+
+		<div class="row">
+			<div class="col">
+				<!-- <ul class="list text-center">
+				    <li class="item">
+				    	Registrar Mantención
+				    </li>
+				    <li class="item">
+				    	Salir
+				    </li>
+				</ul> -->
+				<div class="img-logo">
+					<img src="img/logo-biosur.png" alt="">
+	  			</div>
+	  			<div class="head-user">
+					<span><strong>Bienvenido</strong> {{ usuario }}</span>
+	  			</div>
+				<div class="card text-center menu-principal">
+					<div ui-sref="mantencion" class="item item-text-wrap item-stable">
+						Registrar Mantención
+					</div>
+					<div class="item item-text-wrap item-stable" ng-click="actualizar()">
+						Actualizar {{ items }}
+					</div>
+					<div ui-sref="salir" class="item item-text-wrap item-stable">
+						Salir
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</ion-content>
+</ion-view>
