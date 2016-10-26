@@ -1,7 +1,7 @@
 (function(){
 	var app = angular.module('starter.controllers', ['ngCordova']);
-	var path = 'http://qa.agenciatuciudad.com/Jonathan/biosur/web/app_dev.php';
-	// var path = 'http://intranet.bbiosur.cl';
+	// var path = 'http://qa.agenciatuciudad.com/Jonathan/biosur/web/app_dev.php';
+	var path = 'http://intranet.bbiosur.cl';
 
 	app.controller('IngresoCtrl', function($scope, $http, $state, $ionicHistory, $ionicLoading, $ionicPopup){
 		$scope.data = {};
@@ -82,10 +82,8 @@
 		// almacenarCodigo.guardar('B0000007', user, 0, 0);
 		// almacenarCodigo.limpiar();
 		// mostrar cantidad en boton actualizar
-		almacenarCodigo.mostrar().then(function(rs){
-			$scope.items = '('+rs.rows.length+')';
-			// $scope.items = '('+rs.rows+')';
-			// console.log(rs.rows.item(0).codigo);
+		almacenarCodigo.mostrar().then(function(res){
+			$scope.items = '('+res.rows.length+')';
 		},function(err){
 			$scope.items = '';
 		});
@@ -104,40 +102,51 @@
 		// actualizar
 		$scope.actualizar = function()
 		{
-			// $scope.show($ionicLoading);
+			$scope.show($ionicLoading);
 			almacenarCodigo.mostrar().then(function(rs){
 
 				location.getLocation().then(function(position){
 
-					var json = JSON.stringify(rs.rows);
-					var link_datos 	= path + '/mantencion/app/actualizar-mantencion/';
-					var lat = position.coords.latitude;
-					var lng = position.coords.longitude;
-					var datos = {'datos':json, 'lat':lat, 'lng':lng};
+					$scope.results = [];
+					if(rs.rows.length > 0)
+					{
+						// console.log(rs.rows.item(0));
+						for(var i=0; i<rs.rows.length; i++){
+					        $scope.results.push(rs.rows.item(i));
+					    }
 
-					// $scope.items = json;
+						// var json = JSON.stringify(rs.rows);
+						var link_datos 	= path + '/mantencion/app/actualizar-mantencion/';
+						var lat = position.coords.latitude;
+						var lng = position.coords.longitude;
+						var datos = {'datos':JSON.stringify($scope.results), 'lat':lat, 'lng':lng};
 
-					$http.post(link_datos, datos).then(function(conexion){
-						if(conexion.data.result)
-						{
-							almacenarCodigo.limpiar();
-							almacenarCodigo.mostrar().then(function(nrs){
-								$scope.items = '('+ nrs.rows.length +')';
-							},function(err){
-								$scope.items = '';
-							});
-							var alertPopup = $ionicPopup.alert({title: 'Información actualizada exitosamente.'});
-						}else{
-							var alertPopup = $ionicPopup.alert({title: 'Error de servidor, intente nuevamente.'});
-						}
+						$http.post(link_datos, datos).then(function(conexion){
+							if(conexion.data.result)
+							{
+								almacenarCodigo.limpiar();
+								almacenarCodigo.mostrar().then(function(nrs){
+									$scope.items = '('+ nrs.rows.length +')';
+								},function(err){
+									$scope.items = '';
+								});
+								var alertPopup = $ionicPopup.alert({title: 'Información actualizada exitosamente.'});
+							}else{
+								var alertPopup = $ionicPopup.alert({title: 'Error de servidor, intente nuevamente.'});
+							}
 
-						$scope.hide($ionicLoading);
+							$scope.hide($ionicLoading);
 
-					}, function(err){
+						}, function(err){
+							console.log(err);
+							var alertPopup = $ionicPopup.alert({title: 'Error de conexión'});
+							$scope.hide($ionicLoading);
+						});
+					}else{
 						console.log(err);
-						var alertPopup = $ionicPopup.alert({title: 'Error de conexión'});
+						var alertPopup = $ionicPopup.alert({title: 'Ubicación no encontrada, active el GPS'});
 						$scope.hide($ionicLoading);
-					});
+					}
 
 				}, function(err){
 					console.log(err);
