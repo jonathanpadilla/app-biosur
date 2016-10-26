@@ -83,8 +83,8 @@
 		// almacenarCodigo.limpiar();
 		// mostrar cantidad en boton actualizar
 		almacenarCodigo.mostrar().then(function(rs){
-			// $scope.items = '('+rs.rows.length+')';
-			$scope.items = '('+rs.rows+')';
+			$scope.items = '('+rs.rows.length+')';
+			// $scope.items = '('+rs.rows+')';
 			// console.log(rs.rows.item(0).codigo);
 		},function(err){
 			$scope.items = '';
@@ -115,29 +115,29 @@
 					var lng = position.coords.longitude;
 					var datos = {'datos':json, 'lat':lat, 'lng':lng};
 
-					$scope.items = json;
+					// $scope.items = json;
 
-					// $http.post(link_datos, datos).then(function(conexion){
-					// 	if(conexion.data.result)
-					// 	{
-					// 		almacenarCodigo.limpiar();
-					// 		almacenarCodigo.mostrar().then(function(nrs){
-					// 			$scope.items = '('+ nrs.rows.length +')';
-					// 		},function(err){
-					// 			$scope.items = '';
-					// 		});
-					// 		var alertPopup = $ionicPopup.alert({title: 'Información actualizada exitosamente.'});
-					// 	}else{
-					// 		var alertPopup = $ionicPopup.alert({title: 'Error de servidor, intente nuevamente.'});
-					// 	}
+					$http.post(link_datos, datos).then(function(conexion){
+						if(conexion.data.result)
+						{
+							almacenarCodigo.limpiar();
+							almacenarCodigo.mostrar().then(function(nrs){
+								$scope.items = '('+ nrs.rows.length +')';
+							},function(err){
+								$scope.items = '';
+							});
+							var alertPopup = $ionicPopup.alert({title: 'Información actualizada exitosamente.'});
+						}else{
+							var alertPopup = $ionicPopup.alert({title: 'Error de servidor, intente nuevamente.'});
+						}
 
-					// 	$scope.hide($ionicLoading);
+						$scope.hide($ionicLoading);
 
-					// }, function(err){
-					// 	console.log(err);
-					// 	var alertPopup = $ionicPopup.alert({title: 'Error de conexión'});
-					// 	$scope.hide($ionicLoading);
-					// });
+					}, function(err){
+						console.log(err);
+						var alertPopup = $ionicPopup.alert({title: 'Error de conexión'});
+						$scope.hide($ionicLoading);
+					});
 
 				}, function(err){
 					console.log(err);
